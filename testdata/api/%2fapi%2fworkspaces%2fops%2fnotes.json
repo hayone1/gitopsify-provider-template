@@ -1,0 +1,14 @@
+{
+  "items": [
+    {
+      "id": "welcome",
+      "title": "Welcome",
+      "body": "# Welcome\n\nStart with the <b>runbooks</b> & ask in #ops.\n",
+      "tags": [
+        "start"
+      ],
+      "pinned": true
+    }
+  ],
+  "next": "/api/workspaces/ops/notes?cursor=2"
+}

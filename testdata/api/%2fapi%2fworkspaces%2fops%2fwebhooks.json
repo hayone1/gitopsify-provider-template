@@ -1,0 +1,33 @@
+{
+  "items": [
+    {
+      "id": "chat",
+      "name": "Chat",
+      "type": "http",
+      "url": "https://chat.example.com/hooks/T0K3N",
+      "events": [
+        "note.created",
+        "note.updated"
+      ],
+      "headers": {
+        "X-Team": "ops",
+        "Content-Type": "application/json"
+      },
+      "signed": true,
+      "retry": {
+        "attempts": 3,
+        "backoffSeconds": 10
+      }
+    },
+    {
+      "id": "mail",
+      "name": "Mail",
+      "type": "email",
+      "address": "ops@example.com",
+      "events": [
+        "note.created"
+      ]
+    }
+  ],
+  "next": ""
+}

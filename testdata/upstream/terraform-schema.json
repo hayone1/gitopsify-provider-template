@@ -1,0 +1,193 @@
+{
+ "format_version": "1.0",
+ "provider_schemas": {
+  "registry.terraform.io/example/notes": {
+   "resource_schemas": {
+    "notes_folder": {
+     "block": {
+      "attributes": {
+       "id": {
+        "computed": true,
+        "description": "The ID of this resource.",
+        "description_kind": "plain",
+        "type": "string"
+       },
+       "parent_uid": {
+        "description": "The uid of the parent folder.",
+        "description_kind": "plain",
+        "optional": true,
+        "type": "string"
+       },
+       "title": {
+        "description": "The folder's title.",
+        "description_kind": "plain",
+        "required": true,
+        "type": "string"
+       },
+       "uid": {
+        "computed": true,
+        "description": "The object's ID in the workspace; generated when empty.",
+        "description_kind": "plain",
+        "optional": true,
+        "type": "string"
+       },
+       "workspace": {
+        "description": "The workspace the object belongs to.",
+        "description_kind": "plain",
+        "required": true,
+        "type": "string"
+       }
+      },
+      "description_kind": "plain"
+     },
+     "version": 0
+    },
+    "notes_note": {
+     "block": {
+      "attributes": {
+       "body": {
+        "description": "The note's text (Markdown).",
+        "description_kind": "plain",
+        "required": true,
+        "type": "string"
+       },
+       "folder_uid": {
+        "description": "The uid of the folder holding the note.",
+        "description_kind": "plain",
+        "optional": true,
+        "type": "string"
+       },
+       "id": {
+        "computed": true,
+        "description": "The ID of this resource.",
+        "description_kind": "plain",
+        "type": "string"
+       },
+       "pinned": {
+        "description": "Whether the note is pinned. Defaults to `false`.",
+        "description_kind": "plain",
+        "optional": true,
+        "type": "bool"
+       },
+       "tags": {
+        "description": "Tags.",
+        "description_kind": "plain",
+        "optional": true,
+        "type": [
+         "set",
+         "string"
+        ]
+       },
+       "title": {
+        "description": "The note's title.",
+        "description_kind": "plain",
+        "required": true,
+        "type": "string"
+       },
+       "uid": {
+        "computed": true,
+        "description": "The object's ID in the workspace; generated when empty.",
+        "description_kind": "plain",
+        "optional": true,
+        "type": "string"
+       },
+       "workspace": {
+        "description": "The workspace the object belongs to.",
+        "description_kind": "plain",
+        "required": true,
+        "type": "string"
+       }
+      },
+      "description_kind": "plain"
+     },
+     "version": 0
+    },
+    "notes_webhook": {
+     "block": {
+      "attributes": {
+       "events": {
+        "description": "The events that trigger the webhook.",
+        "description_kind": "plain",
+        "required": true,
+        "type": [
+         "set",
+         "string"
+        ]
+       },
+       "headers_json": {
+        "description": "Extra HTTP headers, as a JSON object.",
+        "description_kind": "plain",
+        "optional": true,
+        "type": "string"
+       },
+       "id": {
+        "computed": true,
+        "description": "The ID of this resource.",
+        "description_kind": "plain",
+        "type": "string"
+       },
+       "name": {
+        "description": "The webhook's name.",
+        "description_kind": "plain",
+        "required": true,
+        "type": "string"
+       },
+       "signing_secret": {
+        "description": "The secret requests are signed with.",
+        "description_kind": "plain",
+        "optional": true,
+        "sensitive": true,
+        "type": "string"
+       },
+       "uid": {
+        "computed": true,
+        "description": "The object's ID in the workspace; generated when empty.",
+        "description_kind": "plain",
+        "optional": true,
+        "type": "string"
+       },
+       "url": {
+        "description": "The URL to call.",
+        "description_kind": "plain",
+        "required": true,
+        "sensitive": true,
+        "type": "string"
+       },
+       "workspace": {
+        "description": "The workspace the object belongs to.",
+        "description_kind": "plain",
+        "required": true,
+        "type": "string"
+       }
+      },
+      "block_types": {
+       "retry": {
+        "block": {
+         "attributes": {
+          "attempts": {
+           "description": "How many times to try. Defaults to `1`.",
+           "description_kind": "plain",
+           "optional": true,
+           "type": "number"
+          },
+          "backoff_seconds": {
+           "description": "Seconds between attempts. Defaults to `5`.",
+           "description_kind": "plain",
+           "optional": true,
+           "type": "number"
+          }
+         },
+         "description_kind": "plain"
+        },
+        "max_items": 1,
+        "nesting_mode": "list"
+       }
+      },
+      "description_kind": "plain"
+     },
+     "version": 0
+    }
+   }
+  }
+ }
+}

@@ -1,0 +1,8 @@
+/bin/
+/dist/
+/.env
+# Interrupted make record runs (may hold secrets).
+/testdata/.record-*
+/testdata/*.old
+.terraform/
+*.tfstate*

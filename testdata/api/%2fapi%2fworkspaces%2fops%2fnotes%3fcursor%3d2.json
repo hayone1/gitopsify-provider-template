@@ -1,0 +1,27 @@
+{
+  "items": [
+    {
+      "id": "restart-db",
+      "title": "Restart the database",
+      "folderId": "databases",
+      "body": "1. Drain\n2. Restart ${service}\n",
+      "tags": [
+        "db",
+        "oncall"
+      ]
+    },
+    {
+      "id": "restart-db-v1",
+      "title": "Restart the database",
+      "folderId": "databases",
+      "body": "Old steps.\n"
+    },
+    {
+      "id": "backups",
+      "title": "Backups / restores",
+      "folderId": "runbooks",
+      "body": "Nightly at 02:00.\n"
+    }
+  ],
+  "next": ""
+}

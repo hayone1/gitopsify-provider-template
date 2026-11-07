@@ -1,0 +1,2 @@
+terraform example/notes: made up for the example (make upstream fills this in for your tool)
+crossplane xpkg.example.com/example/provider-notes:v1.4.0: made up

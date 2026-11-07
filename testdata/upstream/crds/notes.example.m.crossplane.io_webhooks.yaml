@@ -1,0 +1,115 @@
+---
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  name: webhooks.notes.example.m.crossplane.io
+spec:
+  group: notes.example.m.crossplane.io
+  names:
+    categories:
+    - crossplane
+    - managed
+    - notes
+    kind: Webhook
+    listKind: WebhookList
+    plural: webhooks
+    singular: webhook
+  scope: Namespaced
+  versions:
+  - name: v1alpha1
+    served: true
+    storage: true
+    subresources:
+      status: {}
+    schema:
+      openAPIV3Schema:
+        type: object
+        description: Webhook is a managed resource of the fictional example/notes provider.
+        properties:
+          apiVersion:
+            type: string
+          kind:
+            type: string
+          metadata:
+            type: object
+          spec:
+            type: object
+            required:
+            - forProvider
+            properties:
+              forProvider:
+                type: object
+                properties:
+                  events:
+                    type: array
+                    items:
+                      type: string
+                    x-kubernetes-list-type: set
+                  headersJson:
+                    type: string
+                    description: Extra HTTP headers, as a JSON object.
+                  name:
+                    type: string
+                    description: The webhook's name.
+                  retry:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        attempts:
+                          type: number
+                        backoffSeconds:
+                          type: number
+                  signingSecretSecretRef: &id001
+                    type: object
+                    description: A reference to a key in a Secret.
+                    required:
+                    - key
+                    - name
+                    properties:
+                      key:
+                        type: string
+                        description: The key to select.
+                      name:
+                        type: string
+                        description: Name of the secret.
+                  uid:
+                    type: string
+                    description: The object's ID in the workspace; generated when empty.
+                  urlSecretRef: *id001
+                  workspace:
+                    type: string
+                    description: The workspace the object belongs to.
+              initProvider:
+                type: object
+                x-kubernetes-preserve-unknown-fields: true
+              managementPolicies:
+                type: array
+                items:
+                  type: string
+                default:
+                - '*'
+              providerConfigRef:
+                type: object
+                properties:
+                  kind:
+                    type: string
+                  name:
+                    type: string
+              writeConnectionSecretToRef:
+                type: object
+                properties:
+                  name:
+                    type: string
+            x-kubernetes-validations:
+            - message: spec.forProvider.events is a required parameter
+              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies || ''Update'' in self.managementPolicies) || has(self.forProvider.events) || (has(self.initProvider) && has(self.initProvider.events))'
+            - message: spec.forProvider.name is a required parameter
+              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies || ''Update'' in self.managementPolicies) || has(self.forProvider.name) || (has(self.initProvider) && has(self.initProvider.name))'
+            - message: spec.forProvider.urlSecretRef is a required parameter
+              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies || ''Update'' in self.managementPolicies) || has(self.forProvider.urlSecretRef) || (has(self.initProvider) && has(self.initProvider.urlSecretRef))'
+            - message: spec.forProvider.workspace is a required parameter
+              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies || ''Update'' in self.managementPolicies) || has(self.forProvider.workspace) || (has(self.initProvider) && has(self.initProvider.workspace))'
+          status:
+            type: object
+            x-kubernetes-preserve-unknown-fields: true

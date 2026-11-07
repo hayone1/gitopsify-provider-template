@@ -1,0 +1,116 @@
+---
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  name: notes.notes.example.m.crossplane.io
+spec:
+  group: notes.example.m.crossplane.io
+  names:
+    categories:
+    - crossplane
+    - managed
+    - notes
+    kind: Note
+    listKind: NoteList
+    plural: notes
+    singular: note
+  scope: Namespaced
+  versions:
+  - name: v1alpha1
+    served: true
+    storage: true
+    subresources:
+      status: {}
+    schema:
+      openAPIV3Schema:
+        type: object
+        description: Note is a managed resource of the fictional example/notes provider.
+        properties:
+          apiVersion:
+            type: string
+          kind:
+            type: string
+          metadata:
+            type: object
+          spec:
+            type: object
+            required:
+            - forProvider
+            properties:
+              forProvider:
+                type: object
+                properties:
+                  body:
+                    type: string
+                    description: The note's text (Markdown).
+                  folderRef:
+                    type: object
+                    description: Reference to an object to populate the field.
+                    required:
+                    - name
+                    properties:
+                      name:
+                        type: string
+                        description: Name of the referenced object.
+                      namespace:
+                        type: string
+                        description: Namespace of the referenced object.
+                      policy:
+                        type: object
+                        properties:
+                          resolution:
+                            type: string
+                            description: Resolution.
+                          resolve:
+                            type: string
+                            description: Resolve.
+                  folderUid:
+                    type: string
+                    description: The uid of the folder holding the note.
+                  pinned:
+                    type: boolean
+                  tags:
+                    type: array
+                    items:
+                      type: string
+                    x-kubernetes-list-type: set
+                  title:
+                    type: string
+                    description: The note's title.
+                  uid:
+                    type: string
+                    description: The object's ID in the workspace; generated when empty.
+                  workspace:
+                    type: string
+                    description: The workspace the object belongs to.
+              initProvider:
+                type: object
+                x-kubernetes-preserve-unknown-fields: true
+              managementPolicies:
+                type: array
+                items:
+                  type: string
+                default:
+                - '*'
+              providerConfigRef:
+                type: object
+                properties:
+                  kind:
+                    type: string
+                  name:
+                    type: string
+              writeConnectionSecretToRef:
+                type: object
+                properties:
+                  name:
+                    type: string
+            x-kubernetes-validations:
+            - message: spec.forProvider.body is a required parameter
+              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies || ''Update'' in self.managementPolicies) || has(self.forProvider.body) || (has(self.initProvider) && has(self.initProvider.body))'
+            - message: spec.forProvider.title is a required parameter
+              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies || ''Update'' in self.managementPolicies) || has(self.forProvider.title) || (has(self.initProvider) && has(self.initProvider.title))'
+            - message: spec.forProvider.workspace is a required parameter
+              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies || ''Update'' in self.managementPolicies) || has(self.forProvider.workspace) || (has(self.initProvider) && has(self.initProvider.workspace))'
+          status:
+            type: object
+            x-kubernetes-preserve-unknown-fields: true
