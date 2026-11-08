@@ -18,10 +18,6 @@
    cd gitopsify-provider-keycloak
    ```
 
-   Until the SDK has its first tagged release (sdk/v0.1.0), also clone
-   [gitopsify](https://github.com/hayone1/gitopsify) next to it: `go.mod`
-   builds against `../gitopsify/sdk` for now.
-
 2. Rename everything (module, executable, provider, environment variables).
    This also removes these notes and the rename tool:
 
